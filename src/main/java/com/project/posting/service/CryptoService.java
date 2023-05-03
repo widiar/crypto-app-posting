@@ -75,4 +75,19 @@ public class CryptoService {
         responseDto.setSuccess();
         return responseDto;
     }
+    
+    public ResponseDto updateJumlahCryp(Integer id, Crypto crypto) {
+    	ResponseDto responseDto = new ResponseDto();
+    	try {
+    		Optional<Crypto> cryptos = cryptoRepository.findById(id);
+        	cryptos.get().setJumlah(cryptos.get().getJumlah()-1);
+        	cryptoRepository.save(cryptos);
+        	responseDto.setSuccess();
+        	return responseDto;
+    	} catch (Exception e) {
+			// TODO: handle exception
+    		responseDto.setMessage("gagal");
+    		return responseDto;
+		}
+    }
 }

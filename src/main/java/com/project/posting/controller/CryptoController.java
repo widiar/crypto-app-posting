@@ -44,4 +44,9 @@ public class CryptoController {
     public ResponseEntity<ResponseDto> deleteCrypto(@PathVariable Integer id){
         return ResponseEntity.ok(service.delete(id));
     }
+    
+    @PutMapping("/cryp/{id}")
+    public ResponseEntity<ResponseDto> updateJumlahCrypto(@PathVariable Integer id, @RequestBody Crypto crypto){
+        return ResponseEntity.ok(service.updateJumlahCryp(id, crypto));
+    }
 }
