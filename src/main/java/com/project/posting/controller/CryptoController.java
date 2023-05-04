@@ -45,8 +45,15 @@ public class CryptoController {
         return ResponseEntity.ok(service.delete(id));
     }
     
-    @PutMapping("/cryp/{id}")
+    @PutMapping("/min/{id}")
     public ResponseEntity<ResponseDto> updateJumlahCrypto(@PathVariable Integer id, @RequestBody Crypto crypto){
         return ResponseEntity.ok(service.updateJumlahCryp(id, crypto));
+    }
+    
+    @PutMapping("/plus/{id}")
+    public ResponseEntity<ResponseDto> tambahJumlahCrypto(@PathVariable Integer id, @RequestBody Crypto crypto){
+    	System.out.println("crypto"+crypto.getNamaCrypto());
+    	String cryp = crypto.getNamaCrypto();
+        return ResponseEntity.ok(service.tambahJumlahCryp(cryp));
     }
 }

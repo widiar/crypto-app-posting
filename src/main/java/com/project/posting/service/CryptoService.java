@@ -1,5 +1,6 @@
 package com.project.posting.service;
 
+import com.project.posting.config.LoggingConfig;
 import com.project.posting.dto.ResponseDto;
 import com.project.posting.model.Crypto;
 import com.project.posting.repository.CryptoRepository;
@@ -14,6 +15,9 @@ public class CryptoService {
 
     @Autowired
     CryptoRepository cryptoRepository;
+    
+    @Autowired
+    private LoggingConfig logCryp;
 
     public ResponseDto add(Crypto crypto){
         Crypto cekCrypto = cryptoRepository.findByNamaCrypto(crypto.getNamaCrypto());
@@ -79,13 +83,26 @@ public class CryptoService {
     public ResponseDto updateJumlahCryp(Integer id, Crypto crypto) {
     	ResponseDto responseDto = new ResponseDto();
     	try {
-    		Optional<Crypto> cryptos = cryptoRepository.findById(id);
-        	cryptos.get().setJumlah(cryptos.get().getJumlah()-1);
-        	cryptoRepository.save(cryptos);
+    		cryptoRepository.penguranganJmlCrypto(id);
         	responseDto.setSuccess();
+        	logCryp.logCrypPost.info("Pengurangan Jumlah Crypto "+crypto.getNamaCrypto()+" Sukses.");
         	return responseDto;
     	} catch (Exception e) {
-			// TODO: handle exception
+			logCryp.logCrypPost.error("Error pengurangan jumlah crypto: "+e);
+    		responseDto.setMessage("gagal");
+    		return responseDto;
+		}
+    }
+    
+    public ResponseDto tambahJumlahCryp(String cryp) {
+    	ResponseDto responseDto = new ResponseDto();
+    	try {
+    		cryptoRepository.tambahJmlCrypto(cryp);
+        	responseDto.setSuccess();
+        	logCryp.logCrypPost.info("Penambahan Jumlah Crypto "+cryp+" Sukses.");
+        	return responseDto;
+    	} catch (Exception e) {
+			logCryp.logCrypPost.error("Error pengurangan jumlah crypto: "+e);
     		responseDto.setMessage("gagal");
     		return responseDto;
 		}
