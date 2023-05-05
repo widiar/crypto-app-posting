@@ -36,6 +36,11 @@ public class CryptoController {
         return ResponseEntity.ok(service.detail(id));
     }
 
+    @GetMapping("/nama/{nama}")
+    public ResponseEntity<Crypto> detailCrypto(@PathVariable String nama){
+        return ResponseEntity.ok(service.detail(nama));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<ResponseDto> updateCrypto(@PathVariable Integer id, @RequestBody Crypto crypto){
         return ResponseEntity.ok(service.update(id, crypto));
@@ -54,6 +59,6 @@ public class CryptoController {
     @PutMapping("/plus/{id}")
     public ResponseEntity<ResponseDto> tambahJumlahCrypto(@PathVariable Integer id, @RequestBody CryptoUser cryptoUser){
     	String cryp = cryptoUser.getNamaCrypto();
-        return ResponseEntity.ok(service.tambahJumlahCryp(cryp));
+        return ResponseEntity.ok(service.tambahJumlahCryp(cryp, cryptoUser));
     }
 }

@@ -15,8 +15,6 @@ import org.springframework.stereotype.Repository;
 public interface CryptoRepository extends JpaRepository<Crypto, Integer> {
 
     Crypto findByNamaCrypto(String nama);
-
-	void save(Optional<Crypto> crypto);
 	
 	@Modifying
 	@Transactional
