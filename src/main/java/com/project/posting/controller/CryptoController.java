@@ -2,6 +2,7 @@ package com.project.posting.controller;
 
 import com.project.posting.dto.ResponseDto;
 import com.project.posting.model.Crypto;
+import com.project.posting.model.CryptoUser;
 import com.project.posting.service.CryptoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -51,9 +52,8 @@ public class CryptoController {
     }
     
     @PutMapping("/plus/{id}")
-    public ResponseEntity<ResponseDto> tambahJumlahCrypto(@PathVariable Integer id, @RequestBody Crypto crypto){
-    	System.out.println("crypto"+crypto.getNamaCrypto());
-    	String cryp = crypto.getNamaCrypto();
+    public ResponseEntity<ResponseDto> tambahJumlahCrypto(@PathVariable Integer id, @RequestBody CryptoUser cryptoUser){
+    	String cryp = cryptoUser.getNamaCrypto();
         return ResponseEntity.ok(service.tambahJumlahCryp(cryp));
     }
 }
